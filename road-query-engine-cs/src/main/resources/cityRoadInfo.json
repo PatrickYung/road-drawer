@@ -1,0 +1,18 @@
+{
+  "fileType":"Excel",
+  "files":[
+    {
+      "filePath":"foshan_nanhai_road.xls",
+      "cityCode":"0757",
+      "sheetNameList":[
+        {
+          "name":"foshan_nanhai_area",
+          "startRow":1,
+          "endRow":1468,
+          "startCol":0,
+          "endCol":1
+        }
+      ]
+    }
+  ]
+}

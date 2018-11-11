@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ 广州丰石科技公司有限公司拥有本软件版权2017并保留所有权利。
+  ~  Copyright 2017, Guangzhou Rich Stone Data Technologies Company Limited,
+  ~ All rights reserved.
+  ~
+  -->
+
+<configuration>
+
+    <!-- Output to File day by day -->
+    <appender name="daily_file_log_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%date %-5level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/road-query-engine.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Output to console -->
+    <appender name="console_log_appender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- show sql -->
+    <logger name="com.richstonedt.road.query.engine.cs.dao" level="DEBUG"/>
+
+    <!-- level and appender -->
+    <root level="INFO">
+        <appender-ref ref="console_log_appender"/>
+        <!--<appender-ref ref="daily_file_log_appender"/>-->
+    </root>
+
+</configuration>

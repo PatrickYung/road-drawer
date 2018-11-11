@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ 广州丰石科技公司有限公司拥有本软件版权2017并保留所有权利。
+  ~  Copyright 2017, Guangzhou Rich Stone Data Technologies Company Limited,
+  ~ All rights reserved.
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.richstonedt.road.query.engine.cs.dao.road.RoadCoordinateDao">
+    <resultMap id="road_coordinates" type="com.richstonedt.road.query.engine.model.road.RoadCoordinate">
+        <result property="id" column="id"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="roadId" column="road_id"/>
+        <result property="x" column="x"/>
+        <result property="y" column="y"/>
+    </resultMap>
+    <select id="searchById" resultMap="road_coordinates">
+        SELECT * FROM road_coordinates
+        <where>
+            id = #{param1}
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.richstonedt.road.query.engine.model.road.RoadCoordinate" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO road_coordinates(longitude, latitude, road_id, x, y)
+        VALUES (#{longitude},#{latitude},#{roadId},#{x},#{y})
+    </insert>
+
+    <select id="searchNearByCoordinatesByGrid" resultMap="road_coordinates">
+
+        SELECT * FROM road_coordinates
+        <choose>
+            <when test="param3==false">
+                where (x = #{x} and y = #{y})
+            </when>
+            <otherwise>
+                where (x = #{x} and y = #{y})
+                OR (x = #{x} and y = #{y}-1)
+                OR (x = #{x} and y = #{y}+1)
+                OR (x = #{x}-1 and y = #{y})
+                OR (x = #{x}-1 and y = #{y}-1)
+                OR (x = #{x}-1 and y = #{y}+1)
+                OR (x = #{x}+1 and y = #{y})
+                OR (x = #{x}+1 and y = #{y}-1)
+                OR (x = #{x}+1 and y = #{y}+1)
+            </otherwise>
+        </choose>
+
+    </select>
+    <delete id="deleteAll">
+        DELETE FROM road_coordinates
+    </delete>
+</mapper>

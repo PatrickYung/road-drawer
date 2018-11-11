@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ 广州丰石科技公司有限公司拥有本软件版权2017并保留所有权利。
+  ~  Copyright 2017, Guangzhou Rich Stone Data Technologies Company Limited,
+  ~ All rights reserved.
+  ~
+  -->
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.richstonedt.road.query.engine.cs.dao.road.RoadTypeDao">
+    <resultMap id="road_types" type="com.richstonedt.road.query.engine.model.road.RoadType">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+    </resultMap>
+
+    <select id="getRoadTypeByName" resultMap="road_types">
+        SELECT * FROM road_types
+        <where>
+            name = #{param1}
+        </where>
+    </select>
+    <select id="getRoadTypes" resultMap="road_types">
+        SELECT * FROM road_types
+    </select>
+    <select id="getRoadTypeById" resultMap="road_types">
+        SELECT * FROM road_types
+        <where>
+            id = #{param1}
+        </where>
+    </select>
+</mapper>

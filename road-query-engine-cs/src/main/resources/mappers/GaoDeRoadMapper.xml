@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ 广州丰石科技公司有限公司拥有本软件版权2017并保留所有权利。
+  ~  Copyright 2017, Guangzhou Rich Stone Data Technologies Company Limited,
+  ~ All rights reserved.
+  ~
+  -->
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.richstonedt.road.query.engine.cs.dao.road.GaoDeRoadDao">
+    <resultMap id="road_info" type="com.richstonedt.road.query.engine.model.road.GaoDeRoad">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="width" column="width"/>
+        <result property="cityCode" column="city_code"/>
+        <result property="centerLng" column="center_lng"/>
+        <result property="centerLat" column="center_lat"/>
+        <result property="typeId" column="type_id"/>
+        <result property="pointCount" column="point_count"/>
+    </resultMap>
+    <insert id="save" parameterType="com.richstonedt.road.query.engine.model.road.GaoDeRoad" useGeneratedKeys="true"
+            keyColumn="id" keyProperty="id">
+        INSERT INTO road_info (name, width, city_code, center_lat, center_lng, type_id, point_count)
+        VALUES (#{name}, #{width}, #{cityCode}, #{centerLat}, #{centerLng}, #{typeId}, #{pointCount})
+    </insert>
+    <select id="searchById" resultMap="road_info">
+        SELECT * FROM road_info
+        <where>
+            id = #{param1}
+        </where>
+    </select>
+    <select id="searchByTypeId" resultMap="road_info">
+        SELECT * FROM road_info
+        <where>
+            type_id = #{param1}
+        </where>
+    </select>
+    <select id="fuzzySearchByName" resultMap="road_info">
+        SELECT * FROM road_info
+        <where>
+            <foreach collection="list" index="index" item="item" open="(" close=")" separator="or">
+                name like #{item}
+            </foreach>
+        </where>
+    </select>
+
+    <delete id="deleteAll">
+        DELETE FROM road_info
+    </delete>
+</mapper>
